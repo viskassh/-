@@ -125,7 +125,7 @@ namespace WindowsFormsApp1
             return val;
         }
 
-        public double[,] BDVPF()
+        public List<double[,]> BDVPF()
         {
             cmplx[] arr = new cmplx[N];
             for (int i = 0; i < N; i++)
@@ -196,16 +196,19 @@ namespace WindowsFormsApp1
             {
                 val_after[0, j] = (float)arr[j].re;
             }
-            return A_points;
+            List<double[,]> doubles=new List<double[,]> ();
+            doubles.Add(A_points);
+            doubles.Add(val_after);
+          
+            return doubles;
         }
 
 
-
-        private void button1_Click(object sender, EventArgs e)
+                private void button1_Click(object sender, EventArgs e)
         {
             build_Graph(SumSin());
-            build_Graph1(BDVPF());
-            build_Graph2(SumSin(), BDVPF());
+            build_Graph1(BDVPF() [0]);
+            build_Graph2(SumSin(), BDVPF() [1]);
         }
 
         private void build_Graph(double[,] val)
@@ -224,6 +227,7 @@ namespace WindowsFormsApp1
                 Values.Add(new ObservablePoint(val[1, j], val[0, j]));
             }
             ln.Values = Values;//Добавление значений на линию
+            ln.PointGeometrySize = 1;
             series.Add(ln);//Добавление линии в коллекцию линий
             cartesianChart1.Series = series;//Добавление коллекции на график
 
@@ -280,8 +284,6 @@ namespace WindowsFormsApp1
                     Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(64, 79, 86))
                 }
             });
-            //cartesianChart1.LegendLocation = LegendLocation.Bottom;//Где расположить легенду график
-            //cartesianChart1.DataClick += CartesianChart1OnDataClick;
         }
 
         private void build_Graph1(double[,] A_points)
@@ -300,6 +302,7 @@ namespace WindowsFormsApp1
                 Values.Add(new ObservablePoint(A_points[1, j], A_points[0, j]));
             }
             ln.Values = Values;//Добавление значений на линию
+            ln.PointGeometrySize = 1;
             series.Add(ln);//Добавление линии в коллекцию линий
             cartesianChart2.Series = series;//Добавление коллекции на график
             //Определение максимума и минимума по Ox
@@ -375,6 +378,8 @@ namespace WindowsFormsApp1
             }
 
             ln.Values = Values;//Добавление значений на линию
+           
+            ln.PointGeometrySize = 1;
             series.Add(ln);//Добавление линии в коллекцию линий
             cartesianChart3.Series = series;//Добавление коллекции на график
             //Определение максимума и минимума по Ox
@@ -429,7 +434,6 @@ namespace WindowsFormsApp1
                     Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(64, 79, 86))
                 }
             });
-            
         }
 
     }
